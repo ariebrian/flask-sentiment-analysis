@@ -1,0 +1,45 @@
+nav {
+  position: fixed;
+}
+.bg-dark {
+  background-color: #151515 !important;
+}
+/*button {
+  height: 40px;
+  width: 40px;
+  border-width: 0px !important;
+  cursor: pointer;
+  cursor: hand;
+}*/
+li:hover {
+  background: #808080;
+}
+.toggleNavButton {
+  position: absolute;
+  transition-duration: 0.5s;
+  width: 30px;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+.toggleNavButton:before,
+.toggleNavButton:after {
+  border-radius: 2px;
+  transition-duration: 0.5s;
+  content: "";
+  left: 0;
+  background-color: #fff;
+  width: 30px;
+  height: 2px;
+}
+.toggleNavButton.active {
+  width: 0;
+}
+.toggleNavButton.active:after {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.toggleNavButton.active:before {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}

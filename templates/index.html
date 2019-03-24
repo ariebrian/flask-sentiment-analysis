@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'bootstrap.css')}}">
+			<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
+		<!-- <script type="text/javascript" src="js/bootstrap.js"></script> -->
+	</head>
+	<body>
+		<div class="container" style="margin-left: 20px">
+			<center>
+				<h1>Twitter Sentiment Analysis</h1>
+			</center>
+			<div class="row">
+				<div class="col-md-5">
+					<h2>Masukkan file anda</h2>
+					
+					<form action="{{url_for('analysis')}}" method="POST" enctype="multipart/form-data">
+						<div class="col-md-12" style="padding-left: 0px">
+							<table class="table table-bordered table-striped">
+								<thead class="thead-dark">
+									<tr>
+										<th>Add your .csv files here</th>
+									</tr>
+								</thead>
+								<div class="form-group" style="padding: 10px">
+									<tr>
+										<td>
+											<!-- <label for="inputfiles">Add your .csv files</label> -->
+											<input type="file" class="form-control-file" id="inputfiles" name="inputfiles[]" multiple="">
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<button type="submit" class="btn btn-outline-dark ">Submit</button>
+										</td>
+									</tr>
+								</div>
+							</table>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-2">
+					<!-- <h5>or</h5> -->
+				</div>
+				<div class="col-md-5">
+			<h2>Masukkan kata kunci pencarian</h2>
+			
+			<br><br>
+			<form>
+				<div class="form-row">
+					<div class="col-12">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">Enter Here</span>
+							</div>
+							<input type="text" class="form-control " placeholder="keywords (separate with comma)" aria-label="keywords" aria-describedby="basic-addon1">
+						</div>
+					</div>
+					<div class="col-3">
+						<button type="submit" class="btn btn-outline-dark btn-md">Search</button>
+					</div>
+				</div>
+			</form>
+					
+				</div>
+			
+			</div>
+			
+		</div>
+	</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Result</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='bootstrap.css')}}">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+	<script type="text/javascript">
+
+		// for ()
+			
+
+	</script>
+	<!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
+	<!-- <script type="text/javascript" src="js/bootstrap.js"></script> -->
+</head>
+<body>
+	<center>
+		<h1>Twitter Sentiment Analysis</h1>
+	</center>
+
+		<div class="container">
+			<div class="row">	
+					<div class="col-md-6">	
+						<p>res1</p>
+		     			<p>{{result1}}</p>
+		     			<p>res2</p>
+	     				<p>{{result2}}</p>
+	     				<div class="row">
+	     					<canvas id="myChart" style="width: 400, height:400"></canvas>
+						</div>
+					</div>
+					<div class="col-md-6">	
+						<p>res1</p>
+		     			<p>{{clu1}}</p>
+		     			<p>res2</p>
+	     				<p>{{clu2}}</p>
+	     				<div class="row">
+	     					<canvas id="myChart2" style="width: 400, height:400"></canvas>
+						</div>
+					</div>
+			</div>
+		
+			
+			<div class="row">
+				<div class="col-md-5">
+					<h2>Add your files</h2>
+					<form action="{{url_for('analysis')}}" method="POST" enctype="multipart/form-data">
+						<div class="col-md-12" style="padding-left: 0px">
+							<table class="table table-bordered table-striped">
+								<thead class="thead-dark">
+									<tr>
+										<th>Add your .csv files here</th>
+									</tr>
+								</thead>
+								<div class="form-group" style="padding: 10px">
+									<tr>
+										<td>
+											<!-- <label for="inputfiles">Add your .csv files</label> -->
+											<input type="file" class="form-control-file" id="inputfiles" name="inputfiles[]" multiple="">
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<button type="submit" class="btn btn-outline-dark ">Submit</button>
+										</td>
+									</tr>
+								</div>
+							</table>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-2">
+					<!-- <h5>or</h5> -->
+				</div>
+				<div class="col-md-5">
+			<h2>Input your search keyword</h2>
+			<br><br>
+			<form>
+				<div class="form-row">
+					<div class="col-12">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">Enter Here</span>
+							</div>
+							<input type="text" class="form-control " placeholder="keywords (separate with comma)" aria-label="keywords" aria-describedby="basic-addon1">
+						</div>
+					</div>
+					<div class="col-3">
+						<button type="submit" class="btn btn-outline-dark btn-md">Search</button>
+					</div>
+				</div>
+			</form>
+					
+				</div>
+			</div>
+		
+		</div>
+		</div>
+	}
+
+<script>
+	var ctx = document.getElementById("myChart");
+	var ctx2 = document.getElementById("myChart2");
+
+	var data1 = {{ result1|tojson }};
+	var data2 = {{ result2|tojson }};
+	var data3 = {{ clu1|tojson }};
+	var data4 = {{ clu2|tojson }};
+
+
+	var sum1 = data1.reduce(function(a, b) { return a + b; }, 0);
+
+	var sum2 = data2.reduce(function(a, b) { return a + b; }, 0);
+
+	var sum3 = data3.reduce(function(a, b) { return a + b; }, 0);
+
+	var sum4 = data4.reduce(function(a, b) { return a + b; }, 0);
+
+
+	// var max1 = Math.max.apply(null, data1);
+	// var max2 = Math.max.apply(null, data2);
+	var maxed;
+	var maxed2;
+
+	console.log(sum1);
+	console.log(sum2);
+
+	if (sum1 > sum2) {
+		maxed = sum1;
+	} else {
+		maxed = sum2;
+	}
+
+	if (sum3 > sum4) {
+		maxed2 = sum3;
+	} else {
+		maxed2 = sum4;
+	}
+
+	console.log(maxed);
+
+	var myChart = new Chart(ctx, {
+	  type: 'bar',
+	  data: {
+	    labels: ["Positive", "Negative", "Neutral"],
+	    datasets: [{
+	        label: {{name[0]|tojson}},
+	        data: data1,
+	        backgroundColor: 'rgba(34, 95, 193)',
+	        yAxisID: 'y-axis-1',
+	        borderWidth: 2
+	      },
+	      {
+	        label: {{name[1]|tojson}},
+	        data: data2,
+	        backgroundColor: 
+	          'rgba(34, 193, 71)',
+	        yAxisID: 'y-axis-2',
+	        borderWidth: 2
+	      }
+	    ]
+	  },
+	  options: {
+	  	responsive: true,
+	  	tooltips: {
+	  		mode: 'index',
+	  		intersect: true
+	  	},
+	    scales: {
+	      yAxes: [{
+	        type: 'linear',
+	        display: true,
+	        position: 'left',
+	        id: 'y-axis-1',
+	        ticks: {
+	        	beginAtZero: true,
+	        	max: maxed,
+	        }
+	      },
+	      {
+	      	type: 'linear',
+	      	display: true,
+	      	position: 'right',
+	      	id: 'y-axis-2',
+	      	gridLines:{
+	      		drawOnChartArea: false
+	      	},
+	      	ticks: {
+	      		beginAtZero: true,
+	      		max: maxed,
+	      	}
+	      }
+	      ]
+
+	    }
+	  }
+	});
+	var myChart2 = new Chart(ctx2, {
+	  type: 'bar',
+	  data: {
+	    labels: ["Positive", "Negative", "Neutral"],
+	    datasets: [{
+	        label: {{name[0]|tojson}},
+	        data: data3,
+	        backgroundColor: 'rgba(34, 95, 193)',
+	        yAxisID: 'y-axis-1',
+	        borderWidth: 2
+	      },
+	      {
+	        label: {{name[1]|tojson}},
+	        data: data4,
+	        backgroundColor: 
+	          'rgba(34, 193, 71)',
+	        yAxisID: 'y-axis-2',
+	        borderWidth: 2
+	      }
+	    ]
+	  },
+	  options: {
+	  	responsive: true,
+	  	tooltips: {
+	  		mode: 'index',
+	  		intersect: true
+	  	},
+	    scales: {
+	      yAxes: [{
+	        type: 'linear',
+	        display: true,
+	        position: 'left',
+	        id: 'y-axis-1',
+	        ticks: {
+	        	beginAtZero: true,
+	        	max: maxed2,
+	        }
+	      },
+	      {
+	      	type: 'linear',
+	      	display: true,
+	      	position: 'right',
+	      	id: 'y-axis-2',
+	      	gridLines:{
+	      		drawOnChartArea: false
+	      	},
+	      	ticks: {
+	      		beginAtZero: true,
+	      		max: maxed2,
+	      	}
+	      }
+	      ]
+
+	    }
+	  }
+	});
+	
+</script>
+</body>
+</html>
