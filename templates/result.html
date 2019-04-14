@@ -20,20 +20,23 @@
 
 		<div class="container">
 			<div class="row">	
-					<div class="col-md-6">	
-						<p>res1</p>
+					<div class="col-md-5">
+						<p>Lexicon</p>	
+						<p>{{name[0]}}</p>
 		     			<p>{{result1}}</p>
-		     			<p>res2</p>
+		     			<p>{{name[1]}}</p>
 	     				<p>{{result2}}</p>
 	     				<div class="row">
 	     					<canvas id="myChart" style="width: 400, height:400"></canvas>
 						</div>
 					</div>
-					<div class="col-md-6">	
-						<p>res1</p>
-		     			<p>{{clu1}}</p>
-		     			<p>res2</p>
-	     				<p>{{clu2}}</p>
+					<div class="col-md-2"></div>
+					<div class="col-md-5">	
+						<p>K-Means</p>
+						<p>{{name[0]}}</p>
+		     			<p>{{clu1[1],clu1[2],clu1[0]}}</p>
+		     			<p>{{name[1]}}</p>
+	     				<p>{{clu2[1],clu2[2],clu2[0]}}</p>
 	     				<div class="row">
 	     					<canvas id="myChart2" style="width: 400, height:400"></canvas>
 						</div>
@@ -43,7 +46,8 @@
 			
 			<div class="row">
 				<div class="col-md-5">
-					<h2>Add your files</h2>
+					<h2>Masukkan file anda</h2>
+					
 					<form action="{{url_for('analysis')}}" method="POST" enctype="multipart/form-data">
 						<div class="col-md-12" style="padding-left: 0px">
 							<table class="table table-bordered table-striped">
@@ -55,8 +59,12 @@
 								<div class="form-group" style="padding: 10px">
 									<tr>
 										<td>
-											<!-- <label for="inputfiles">Add your .csv files</label> -->
-											<input type="file" class="form-control-file" id="inputfiles" name="inputfiles[]" multiple="">
+											<input type="file" class="form-control-file" id="inputfiles1" name="inputfiles1">
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="file" class="form-control-file" id="inputfiles2" name="inputfiles2">
 										</td>
 									</tr>
 									<tr>
@@ -201,14 +209,14 @@
 	    labels: ["Positive", "Negative", "Neutral"],
 	    datasets: [{
 	        label: {{name[0]|tojson}},
-	        data: data3,
+	        data: [data3[1],data3[2],data3[0]],
 	        backgroundColor: 'rgba(34, 95, 193)',
 	        yAxisID: 'y-axis-1',
 	        borderWidth: 2
 	      },
 	      {
 	        label: {{name[1]|tojson}},
-	        data: data4,
+	        data: [data4[1],data4[2],data4[0]],
 	        backgroundColor: 
 	          'rgba(34, 193, 71)',
 	        yAxisID: 'y-axis-2',

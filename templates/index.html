@@ -7,10 +7,11 @@
 		<!-- <script type="text/javascript" src="js/bootstrap.js"></script> -->
 	</head>
 	<body>
-		<div class="container" style="margin-left: 20px">
+		<div class="container" style="margin-left: 100px">
 			<center>
 				<h1>Twitter Sentiment Analysis</h1>
 			</center>
+			
 			<div class="row">
 				<div class="col-md-5">
 					<h2>Masukkan file anda</h2>
@@ -26,8 +27,12 @@
 								<div class="form-group" style="padding: 10px">
 									<tr>
 										<td>
-											<!-- <label for="inputfiles">Add your .csv files</label> -->
-											<input type="file" class="form-control-file" id="inputfiles" name="inputfiles[]" multiple="">
+											<input type="file" class="form-control-file" id="inputfiles1" name="inputfiles1">
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="file" class="form-control-file" id="inputfiles2" name="inputfiles2">
 										</td>
 									</tr>
 									<tr>
@@ -47,14 +52,22 @@
 			<h2>Masukkan kata kunci pencarian</h2>
 			
 			<br><br>
-			<form>
+			<form action="{{url_for('search')}}" method="POST">
 				<div class="form-row">
 					<div class="col-12">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1">Enter Here</span>
 							</div>
-							<input type="text" class="form-control " placeholder="keywords (separate with comma)" aria-label="keywords" aria-describedby="basic-addon1">
+							<input type="text" class="form-control " placeholder="keywords1" aria-label="keywords" aria-describedby="basic-addon1" name="key1">
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">Enter Here</span>
+							</div>
+							<input type="text" class="form-control " placeholder="keywords2" aria-label="keywords" aria-describedby="basic-addon1" name="key2">
 						</div>
 					</div>
 					<div class="col-3">
@@ -66,7 +79,24 @@
 				</div>
 			
 			</div>
-			
+			<p>Cara Menggunakan Aplikasi:</p>
+			<ul>
+				<li>
+					<p>. Mempunyai file berisi Tweets yang akan dianalisis:</p>
+				</li>
+				<ol>
+					<p>1. Pastikan file mempunyai format .csv </p>	
+					<p>2. Kolom data Tweets diberi nama "Tweet" </p>
+					<p>3. Masukkan 2 file untuk diolah dan dibandingkan</p>
+				</ol>
+				<li>	
+					<p>B. Mencari Tweets dengan kata tertentu untuk dianalisis:</p>
+				</li>	
+				<ol>
+					<p>1. Masukkan keyword yang ingin dicari pada form yang disediakan </p>
+					<p>2. Masukkan 2 keyword, pisahkan dengan tanda koma</p>
+				</ol>
+			</ul>
 		</div>
 	</body>
 </html>
